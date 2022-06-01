@@ -64,16 +64,6 @@ function isLess(i, j) {
 
 // -----------------------------------
 
-
-// for(let i = 0; i < `$calculationDistance`.length; i++){
-//   //stocker l'index de l'élément minimum
-//   let min = i;
-//   for(let j = i+1; j < `$calculationDistance`.length; j++){
-//       swap(i, j);
-//   }
-  
-// }
-
 function insertsort() {
 
 for (i = 1; i<csvData.length ; i++){
@@ -93,6 +83,20 @@ for (i = 1; i<csvData.length ; i++){
 // -----------------------------------
 
 function selectionsort() {
+
+  for(i =0; i<csvData.length; i++){
+    min=csvData[i];
+    iMin = i;
+    for(j = i+1; j<csvData.length; j++){
+      if( isLess(j, iMin)){
+        min=csvData[j];
+        iMin = j;
+      }
+    }
+    swap(iMin,i);
+  }
+
+
   console.log("selectionsort - implement me !");
 }
 
@@ -117,6 +121,19 @@ function bubblesort() {
 // -----------------------------------
 
 function shellsort() {
+  const gaps = [66,31,14,5,1];
+
+  for(let g = 0; g < gaps.length; g++){
+    const gap = gaps[g];
+    for (var i = gap; i < csvData.length; i++) {
+			for (var j = i; j >= gap && isLess(j,j-gap); j -= gap) {
+				swap(j, j-gap);
+			}
+		}
+	}
+  // return csvData;
+  console.log(csvData);
+
   console.log("shellsort - implement me !");
 }
 
@@ -135,6 +152,10 @@ function heapsort() {
 // -----------------------------------
 
 function quicksort() {
+
+  
+
+
   console.log("quicksort - implement me !");
   if(first<last) {
     const pivot = partition(first, last, selectPivot(first, last));
