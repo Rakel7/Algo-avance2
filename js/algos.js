@@ -156,7 +156,44 @@ function shellsort() {
 // -----------------------------------
 
 function mergesort(start=0, length=N) {
+
+  if(length > 1){
+
+    middle= length/2;
+    mergesort(start, middle);
+    mergesort((start+middle),(length-middle));
+    merge(start,(start+middle), length)
+
+  }
+
   console.log("mergesort - implement me !");
+}
+
+function merge(first, second, length){
+  let first_part_empty=true;
+  let second_part_empty=true;
+
+  if(first == second){ 
+    return first_part_empty;
+  }
+
+  if((second - first) == length){ 
+    return second_part_empty;
+  }
+
+  if(first_part_empty === ' ' || second_part_empty === ' '){
+    return;
+  }
+
+  if(first <= second){
+    merge(first+1, second, length-1)
+  }else{
+    for(i=second; i < first ; i++){
+      swap(i, i-1)
+    }
+    merge(first+1, second+1, length-1)
+  }
+
 }
 
 // -----------------------------------
@@ -171,26 +208,6 @@ function heapsort() {
  * Function quicksort
  *
  */
-
-// function partition(csvData, first, last) {
-//     var pivot   = csvData[Math.floor((last + first) / 2)], //middle element
-//         i       = first, //left pointer
-//         j       = last; //right pointer
-//     while (i <= j) {
-//         while (csvData[i] < pivot) {
-//             i++;
-//         }
-//         while (csvData[j] > pivot) {
-//             j--;
-//         }
-//         if (i <= j) {
-//             swap(i, j); //sawpping two elements
-//             i++;
-//             j--;
-//         }
-//     }
-//     return i;
-// }
 
 function partition(first, last, pivot){
   swap(pivot, last)
