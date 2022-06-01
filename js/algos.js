@@ -137,6 +137,22 @@ function shellsort() {
   console.log("shellsort - implement me !");
 }
 
+/**
+ * 
+ * Version 2
+ * const gaps = [701, 301, 132, 57, 23, 10, 4, 1]; //iniatilise le tableau gaps
+    function shellsort() {
+      for (let g = 0; g < gaps.length; g++){
+        let gap = gaps[g];
+        for (let i = gap; i < csvData.length; i++){
+          for (let j = i, k= j-gap; k >= 0 && isLess(j, k) ; j -= gap, k-= gap){
+            swap(j, k);
+          }
+        }
+      }
+ * 
+ */
+
 // -----------------------------------
 
 function mergesort(start=0, length=N) {
@@ -146,22 +162,60 @@ function mergesort(start=0, length=N) {
 // -----------------------------------
 
 function heapsort() {
+
   console.log("heapsort - implement me !");
 }
 
-// -----------------------------------
+/**
+ * 
+ * Function quicksort
+ *
+ */
 
-function quicksort() {
+// function partition(csvData, first, last) {
+//     var pivot   = csvData[Math.floor((last + first) / 2)], //middle element
+//         i       = first, //left pointer
+//         j       = last; //right pointer
+//     while (i <= j) {
+//         while (csvData[i] < pivot) {
+//             i++;
+//         }
+//         while (csvData[j] > pivot) {
+//             j--;
+//         }
+//         if (i <= j) {
+//             swap(i, j); //sawpping two elements
+//             i++;
+//             j--;
+//         }
+//     }
+//     return i;
+// }
 
+function partition(first, last, pivot){
+  swap(pivot, last)
+  j = first;
+
+  for(i = first; i < last; i++ ){
+    if(isLess(i, last)){
+      swap(i, j)
+      j = j+1;
+    }
+  }
+  swap(last, j)
+  return j;
   
+}
 
+function quicksort(first=0, last=csvData.length-1) {
+  if(first<last){
+   let pivot = last;
+    pivot = partition( first, last, pivot);
+    quicksort( first, pivot-1);
+    quicksort( pivot+1, last);
+  }
 
   console.log("quicksort - implement me !");
-  if(first<last) {
-    const pivot = partition(first, last, selectPivot(first, last));
-    quicksort(first, pivot-1);
-    quicksort(pivot+1, last);
-  }
 }
 
 // -----------------------------------
