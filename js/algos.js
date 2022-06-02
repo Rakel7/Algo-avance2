@@ -45,7 +45,7 @@ function swap(i,j) {
   
   displayBuffer.push(['swap', i, j]); // Do not delete this line (for display)
 
-  console.log("swap - implement me !");
+  // console.log("swap - implement me !");
 }
 
 // Returns true if city with index i in csvData is closer to Grenoble than city with index j
@@ -59,7 +59,7 @@ function isLess(i, j) {
     }
 
   displayBuffer.push(['compare', i, j]); // Do not delete this line (for display)
-  console.log("isLess - implement me !");
+  // console.log("isLess - implement me !");
 }
 
 // -----------------------------------
@@ -139,7 +139,7 @@ function shellsort() {
 
 /**
  * 
- * Version 2
+ * shellsort version 2
  * const gaps = [701, 301, 132, 57, 23, 10, 4, 1]; //iniatilise le tableau gaps
     function shellsort() {
       for (let g = 0; g < gaps.length; g++){
@@ -156,52 +156,69 @@ function shellsort() {
 // -----------------------------------
 
 function mergesort(start=0, length=N) {
-
   if(length > 1){
 
-    middle= length/2;
+    let middle= Math.floor(length/2);
     mergesort(start, middle);
-    mergesort((start+middle),(length-middle));
-    merge(start,(start+middle), length)
+    mergesort(start+middle,length-middle);
+    merge(start,start+middle, length);
 
   }
-
-  console.log("mergesort - implement me !");
 }
 
 function merge(first, second, length){
-  let first_part_empty=true;
-  let second_part_empty=true;
+  let first_part_empty = first === second;
+  let second_part_empty= second-first === length;
 
-  if(first == second){ 
-    return first_part_empty;
-  }
-
-  if((second - first) == length){ 
-    return second_part_empty;
-  }
-
-  if(first_part_empty === ' ' || second_part_empty === ' '){
+  if(first_part_empty || second_part_empty ){
     return;
   }
 
-  if(first <= second){
-    merge(first+1, second, length-1)
+  if(isLess(first , second)){
+    merge(first+1, second, length-1);
   }else{
-    for(i=second; i < first ; i++){
-      swap(i, i-1)
+    for(i=second; i >= first+1 ; i--){
+      swap(i, i-1);
     }
-    merge(first+1, second+1, length-1)
+    merge(first+1, second+1, length-1);
   }
 
 }
 
 // -----------------------------------
 
-function heapsort() {
-
-  console.log("heapsort - implement me !");
+function createHeap(){
+  for (let i = Math.floor(N/2); i >= 0; i--){
+    cram(N,i);
+  }
 }
+
+function cram(end, index){
+  let left = 2 * index + 1;
+  let right = 2 * index + 2;
+  let max = index;
+
+  if (right < end && isLess(max,right)){
+    max = right;
+  }
+
+  if (left < end && isLess(max, left)){
+    max = left;
+  }
+
+  if (index !== max){
+    swap(max, index);
+    cram(end,max);
+  }
+}
+function heapsort() {
+  createHeap()
+  for (let i = N - 1; i >= 0; i--){
+    swap(0,i);
+    cram(i,0);
+  }
+}
+
 
 /**
  * 
